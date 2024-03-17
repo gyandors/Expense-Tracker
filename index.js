@@ -24,21 +24,25 @@ form.addEventListener('submit', function (event) {
   document.getElementById('category').value = '';
 });
 
-//Displaying the details stored in local storage
+//Displaying the details stored in local storage on window load
 window.addEventListener('DOMContentLoaded', function () {
-  Object.keys(this.localStorage).forEach((keyForobj) => {
-    displayExpences(JSON.parse(this.localStorage.getItem(keyForobj)));
+  Object.keys(this.localStorage).forEach((val) => {
+    displayExpences(JSON.parse(this.localStorage.getItem(val)));
   });
 });
 
 function displayExpences(obj) {
   const list = document.createElement('li');
-  list.className = 'list-inline';
-  list.innerHTML = `Rs.${obj.amount} - ${obj.category}<p style="font-style:italic">${obj.desc}</p>`;
+  list.className = ' list-group-item list-group-item-dark';
+  list.innerHTML = `Rs. ${obj.amount} - ${obj.category}<p style="font-style:italic">${obj.desc}</p>`;
 
   const delBtn = document.createElement('button');
   delBtn.innerHTML = 'Delete';
   delBtn.className = 'btn btn-danger btn-sm';
+  delBtn.setAttribute(
+    'style',
+    'padding-y: .25rem; padding-x: .5rem; font-size: .6rem;'
+  );
   delBtn.addEventListener('click', function () {
     records.removeChild(delBtn.parentElement);
     localStorage.removeItem(obj.keyForobj);
@@ -48,6 +52,10 @@ function displayExpences(obj) {
   const editBtn = document.createElement('button');
   editBtn.innerHTML = 'Edit';
   editBtn.className = 'btn btn-danger btn-sm';
+  editBtn.setAttribute(
+    'style',
+    'padding-y: .25rem; padding-x: .5rem; font-size: .6rem; margin-left:10px'
+  );
   editBtn.addEventListener('click', function () {
     document.getElementById('amount').value = obj.amount;
     document.getElementById('desc').value = obj.desc;
